@@ -3,22 +3,18 @@ import java.util.HashMap;
 public class RemoveDuplicatesFromSortedListII {
     public ListNode deleteDuplicates(ListNode head) {
         if(head == null) return null;
-        HashMap<Integer,Integer> map= new HashMap<>();
-        ListNode curr = head;
-        while(curr!=null){
-            map.put(curr.val, map.getOrDefault(curr.val,0)+1);
-            curr = curr.next;
-        }
         ListNode dummy = new ListNode();
-        ListNode tempDummy=dummy;
-        curr = head;
-        while(curr!=null){
-            if(map.get(curr.val) == 1){
-                tempDummy.next = curr;
+        ListNode tempDummy = dummy;
+        while(head != null){
+            if(head.next != null && head.val == head.next.val){
+                while(head.next!=null && head.val == head.next.val){
+                    head = head.next;
+                }
+            }else{
+                tempDummy.next = head;
                 tempDummy = tempDummy.next;
             }
-
-            curr = curr.next;
+            head = head.next;
         }
         tempDummy.next = null;
         return dummy.next;
